@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyBoardCtrl : InputCtrlBase
 {
-    public override void Update()
+    public void Update()
     {
         InputDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
