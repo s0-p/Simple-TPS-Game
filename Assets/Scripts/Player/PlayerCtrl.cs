@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharCtrl : MonoBehaviour
+public class PlayerCtrl : MonoBehaviour
 {
     [Header("이동 속도"), SerializeField]
     float _moveSpeed = 5f;

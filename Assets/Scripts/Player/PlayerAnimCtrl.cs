@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerAnimCtrl : MonoBehaviour
 {
@@ -8,6 +9,13 @@ public class PlayerAnimCtrl : MonoBehaviour
     //--------------------------------------------------------
     float _lastAttackTime, _lastSkillTime, _lastDashTime;
     bool _isAttacking = false;
+    //--------------------------------------------------------
+    [Header("일반 공격 애니 이벤트"), SerializeField]
+    UnityEvent _OnNormalAttack;
+    [Header("[ 스킬 공격 애니 이벤트 ]"), SerializeField]
+    UnityEvent _OnSkillAttack;
+    [Header("[ 대쉬 공격 애니 이벤트 ]"), SerializeField]
+    UnityEvent _OnDashAttack;
     //---------------------------------------------------------------------
     void Awake() 
     {
@@ -35,6 +43,8 @@ public class PlayerAnimCtrl : MonoBehaviour
         {
             SetSkill(true);
             _lastSkillTime = Time.time;
+            if (_OnSkillAttack != null)
+                _OnSkillAttack.Invoke();
         }
     }
     public void OnSkillFinish() { SetSkill(false); }
@@ -44,6 +54,8 @@ public class PlayerAnimCtrl : MonoBehaviour
         {
             DoDash();
             _lastDashTime = Time.time;
+            if (_OnDashAttack != null)
+                _OnDashAttack.Invoke();
         }
     }
     public void OnDashFinish() { }
@@ -56,6 +68,8 @@ public class PlayerAnimCtrl : MonoBehaviour
             while (_isAttacking)
             {
                 DoAttackStart();
+                if (_OnNormalAttack != null)
+                    _OnNormalAttack.Invoke();
                 yield return new WaitForSeconds(1f);
             }
         }
