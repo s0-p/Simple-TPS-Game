@@ -12,6 +12,9 @@ public class CharCtrl : MonoBehaviour
     [Header("컨트롤러"), SerializeField]
     InputCtrlBase _controller;
     PlayerAnimCtrl _animCtrl;
+    //--------------------------------------------------------
+    [Header("루트 모션용 트랜스폼"), SerializeField]
+    Transform _characterBodyTrsf;
     //---------------------------------------------------------------------
     void Awake() { _animCtrl = GetComponent<PlayerAnimCtrl>(); }
     void Update() { Move(); }
@@ -30,9 +33,9 @@ public class CharCtrl : MonoBehaviour
         {
             Vector3 moveDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
 
-            transform.SetPositionAndRotation(
-                transform.position + Time.deltaTime * _moveSpeed * moveDir,
-                Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * _rotSpeed)
+            _characterBodyTrsf.SetPositionAndRotation(
+                _characterBodyTrsf.position + Time.deltaTime * _moveSpeed * moveDir,
+                Quaternion.Lerp(_characterBodyTrsf.rotation, Quaternion.LookRotation(moveDir), Time.deltaTime * _rotSpeed)
                 );
         }
     }
