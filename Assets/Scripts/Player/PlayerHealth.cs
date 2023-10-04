@@ -56,6 +56,7 @@ public class PlayerHealth : MonoBehaviour
         _isHitted = true;
         _curHealth -= damage;
         _sliderHealth.value = _curHealth;
+        _playerCtrl.FreezeMove(this);
 
         if (_curHealth <= 0 && !_isDead)
             OnDead();

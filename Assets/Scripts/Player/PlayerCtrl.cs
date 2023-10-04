@@ -39,4 +39,21 @@ public class PlayerCtrl : MonoBehaviour
                 );
         }
     }
+    public void FreezeMove(PlayerHealth playerHealth)
+    {
+        StartCoroutine(Crt_FreezeMove(0.7f, playerHealth));
+    }
+    IEnumerator Crt_FreezeMove(float time, PlayerHealth health)
+    {
+        if (health.CurHealth <= 0f)
+        {
+            enabled = false;
+            yield break;
+        }
+        enabled = false;
+        yield return new WaitForSeconds(time);
+
+        if (health.CurHealth > 0)
+            enabled = true;
+    }
 }
